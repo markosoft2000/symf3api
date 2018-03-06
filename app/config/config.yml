@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@AcmeApiBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -66,3 +67,35 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+#nelmio_cors:
+#    defaults:
+#        allow_credentials: false
+#        allow_origin: ['*']
+#        allow_headers: ['*']
+#        allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+#        max_age: 3600
+#        hosts: []
+#        origin_regex: false
+
+fos_rest:
+    routing_loader:
+        default_format: json
+        include_format: false
+
+fos_user:
+    db_driver: orm
+    firewall_name: api
+    user_class: Acme\ApiBundle\Entity\User
+    from_email:
+        address:        noreply@example.com
+        sender_name:    API
+
+fos_oauth_server:
+    db_driver:           orm
+    client_class:        Acme\ApiBundle\Entity\Client
+    access_token_class:  Acme\ApiBundle\Entity\AccessToken
+    refresh_token_class: Acme\ApiBundle\Entity\RefreshToken
+    auth_code_class:     Acme\ApiBundle\Entity\AuthCode
+    service:
+        user_provider: fos_user.user_provider.username

@@ -1,0 +1,4 @@
+library_books:
+    type: rest
+    resource: "@AcmeApiBundle/Controller/LibraryController.php"
+    prefix: /v1
